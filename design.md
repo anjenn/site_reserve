@@ -1,98 +1,32 @@
-# Code V01D Design Guardrail
+# NEST DANCE 디자인 기준
 
-## Product Intent
+NEST DANCE는 그린 톤의 산뜻하고 차분한 에너지를 가진 댄스 스튜디오 사이트입니다. 첫 화면은 단순한 홍보 페이지가 아니라 실제로 수업을 확인하고 예약으로 이어질 수 있는 사용 경험이어야 합니다.
 
-Code V01D is a one-page bilingual booking and admin site for a pastel photo/concept studio. The first screen should feel like a branded booking experience, not a SaaS dashboard or a generic landing page.
+## 시각 방향
 
-The primary user flows are:
+- `preview.html`의 그린 팔레트를 기준으로 합니다: 딥 그린, 밝은 스튜디오 그린, 연한 민트, 크림, 화이트.
+- 여백은 넉넉하게, 제목은 또렷하게, 주요 행동 버튼은 명확하게 유지합니다.
+- 가능한 경우 실제 춤/스튜디오 분위기가 느껴지는 사진형 이미지를 사용합니다.
+- 카드는 빠른 링크, 반복 정보, 링크 허브, 폼처럼 목적이 분명한 곳에만 사용합니다.
+- 의미 없는 장식, 과한 그라데이션, 분위기만 있는 배경은 피합니다.
 
-1. A visitor checks the creator profile and links.
-2. A visitor chooses a concept.
-3. A visitor picks a calendar slot and submits an inquiry.
-4. An admin signs in with the allowed Google account, opens the workspace, reviews demand, manages orders, and checks insights.
+## 레이아웃
 
-## Visual System
+- 모든 페이지의 내비게이션은 같은 구조로 유지합니다.
+- 홈에서는 예약, 스케줄, 링크로 바로 이동할 수 있어야 합니다.
+- 소개, 스케줄, 예약, 링크는 각각 별도 페이지로 제공합니다.
+- 모바일에서는 한 열 구조로 읽기 쉽게 정리합니다.
+- 카드 안에 또 다른 카드를 넣지 않습니다.
 
-Keep the site in the magical studio direction:
+## 인터랙션
 
-- Pearl white, pastel pink, lavender, icy blue, and mint accents.
-- Lace, bows, hearts, sparkles, pearls, glassy panels, and glossy cards.
-- Serif typography for the brand, hero, section headings, and primary public copy.
-- Small sans-serif text only for controls, metadata, tables, badges, and dense admin UI.
-- Soft shadows, translucent panels, ornamental borders, and gentle motion.
+- 버튼은 무엇을 하는지 명확해야 하며 hover/focus 상태가 보여야 합니다.
+- 예약 폼이 목업이거나 프런트엔드 전용일 때는 그 사실을 문구로 분명히 알립니다.
+- 링크 허브의 임시 링크는 최종 URL로 교체해야 한다는 점이 드러나야 합니다.
 
-Avoid:
+## 접근성
 
-- Generic startup/SaaS dashboards.
-- Heavy dark themes.
-- Sharp industrial layouts.
-- Large marketing explainer sections.
-- Palette drift into a single flat purple or beige theme.
-
-## Core Tokens
-
-Use the existing CSS custom properties in `index.html` as the source of truth:
-
-```css
---paper: #fff9ff;
---ink: #5d4569;
---pink: #f8a9d3;
---pink-deep: #d84d95;
---violet: #bda3ff;
---violet-deep: #805bcf;
---blue: #a9e7f6;
---mint: #bcf3e7;
---line: rgba(216, 119, 179, .34);
---shadow: 0 24px 70px rgba(167, 108, 170, .28);
---serif: "Noto Serif KR", "Nanum Myeongjo", "Iropke Batang", Georgia, Cambria, "Times New Roman", serif;
---sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
-```
-
-## Content Rules
-
-- Korean is the default language.
-- English must switch without page reload.
-- Any new visible label, button, placeholder, status, notice, concept, table header, or toast needs both Korean and English text.
-- Keep copy short enough to fit mobile controls and cards.
-- Admin UI should still feel like Code V01D, even when showing tables and kanban columns.
-
-## Interaction Rules
-
-Required interactions:
-
-- Language switch updates all major visible text.
-- Admin switch opens a Google sign-in prompt and only reveals the admin workspace to the configured admin account.
-- Concept buttons preselect the inquiry concept and scroll to the calendar.
-- Slot click toggles that slot in a multi-select list, so visitors can send several possible dates/times for admin review.
-- Calendar displays the admin-configured open window, defaulting to tomorrow through roughly one month ahead.
-- Inquiry submit saves a public inquiry, copies a paste-ready inquiry summary, opens Kakao Channel, increments every selected slot request count, and creates one incoming admin order with all selected candidate slots.
-- Public Kakao handoff should be possible once the visitor has entered a name; contact, concept, memo, and candidate slots enrich the request but should not block the button.
-- In admin mode, clicking a calendar slot toggles that slot between open and closed without changing public inquiry selections.
-- Admin can add reservation records and optionally link each record back to an incoming request.
-- Manual admin order add increments the selected slot and creates an order.
-- Kanban previous/next buttons and drag/drop update order status.
-- Insights update after inquiries, manual orders, or reservation records are added.
-
-## Layout Rules
-
-- Desktop: hero and calendar use two-column layouts.
-- Tablet: concept cards use two columns.
-- Mobile: all major sections become one column.
-- Top navigation stays sticky and usable on narrow screens.
-- Calendar availability should show compact open-window rows with inline month stoppers: Saturdays and Sundays show concrete time slots, Monday-Friday show a single request button, and closed or within-one-hour weekend slots appear as blocked chips.
-- Buttons must have stable dimensions and visible focus states.
-- Text must not overlap, clip awkwardly, or require horizontal scrolling.
-
-## Accessibility Rules
-
-- Use semantic sections, headings, forms, buttons, and tables.
-- Keep interactive controls as real `<button>`, `<select>`, `<input>`, and `<textarea>` elements.
-- Maintain visible focus outlines.
-- Use `aria-live` where dynamic slot/order feedback changes.
-- Avoid relying on color alone for status; pair color with text.
-
-## Asset Rules
-
-Concept cards should use real studio/concept images or approved generated bitmap assets that clearly show the product or shoot style. Keep those card assets optimized for static hosting.
-
-Do not add external dependencies to the standalone static site unless the project is intentionally converted into a real build system.
+- header, nav, main, section, footer 같은 시맨틱 구조를 유지합니다.
+- 그린 배경 위 텍스트 대비를 충분히 확보합니다.
+- 상태 표시는 색상만으로 구분하지 않고 텍스트를 함께 사용합니다.
+- 폼 라벨은 항상 보이게 두고 의미가 분명해야 합니다.

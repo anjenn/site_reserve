@@ -1,9 +1,35 @@
 .env
 .env.*
 !.env.example
+
+# Local Firebase/project metadata
+.firebaserc
+firebase.json
+firebase-debug.log
+firestore.rules
+firestore.indexes.json
+.firebase/
+
+# Local agent/tooling cache
+.agents/
+skills-lock.json
+
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+*.p8
+*.cert
+*.crt
+*.credentials
+credentials.json
+service-account*.json
+serviceAccount*.json
+google-services.json
+GoogleService-Info.plist
+
+# Build/dependency output
 node_modules/
 dist/
-firebase-debug.log
-.firebase/
 .DS_Store
 Thumbs.db

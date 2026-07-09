@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>예약 | NEST DANCE</title>
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+  <div class="top-banner">NEST DANCE | 무료 상담 | 팝업 워크숍 | 연습실 대관</div>
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="index.html" class="logo" aria-label="NEST DANCE 홈"><img class="logo-mark" src="assets/KakaoTalk_20260707_214327206.jpg" alt="NEST STUDIO GEOYEO 로고" /><span>NEST DANCE</span></a>
+      <div class="nav-links">
+        <a href="schedule.html">스케줄</a>
+        <a href="links.html">링크</a>
+        <a href="http://pf.kakao.com/_xmxeSuG" class="nav-cta" target="_blank" rel="noopener noreferrer">카카오 문의</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <span class="eyebrow">예약</span>
+      <h1>수업, 상담, 연습실을 예약하세요.</h1>
+      <p class="lead">현재는 화면 흐름을 보여주는 프런트엔드 폼입니다. 실제 운영 시 Google Form, 카카오 채널, 예약 시스템과 연결할 수 있습니다.</p>
+    </section>
+
+    <section class="section">
+      <div class="reservation">
+        <aside class="reservation-info">
+          <h2>움직일 준비가 되셨나요?</h2>
+          <p>원하는 목적을 선택해 상담, 수업, 워크숍, 보강 신청, 연습실 대관을 요청해 주세요.</p>
+          <ul>
+            <li><strong>무료 상담</strong><br />레벨, 목적, 가능한 시간대를 함께 확인합니다.</li>
+            <li><strong>수업 예약</strong><br />정규 수업, 팝업 워크숍, 게스트 세션을 신청합니다.</li>
+            <li><strong>연습실 대관</strong><br />개인 연습, 팀 연습, 촬영을 위한 공간을 예약합니다.</li>
+          </ul>
+        </aside>
+
+        <form id="reservationForm">
+          <div class="form-grid">
+            <label>
+              이름
+              <input type="text" name="name" placeholder="이름을 입력해 주세요" required />
+            </label>
+            <label>
+              연락처
+              <input type="tel" name="phone" placeholder="010-0000-0000" required />
+            </label>
+            <label>
+              예약 유형
+              <select name="type" required>
+                <option value="">선택해 주세요</option>
+                <option>무료 상담</option>
+                <option>정규 수업 예약</option>
+                <option>팝업 워크숍 신청</option>
+                <option>보강 신청</option>
+                <option>연습실 대관</option>
+              </select>
+            </label>
+            <label>
+              희망 날짜
+              <input type="date" name="date" required />
+            </label>
+            <label class="full">
+              남기실 내용
+              <textarea name="message" placeholder="원하는 수업, 레벨, 방문 목적 등을 편하게 적어주세요."></textarea>
+            </label>
+          </div>
+          <button class="btn btn-dark" type="submit">예약 요청 보내기</button>
+          <div id="formResult" class="form-result">예약 요청 목업이 완료되었습니다. 실제 운영 전 최종 예약 서비스와 연결해 주세요.</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div><h2>NEST DANCE</h2><p>수업, 상담, 워크숍, 연습실 대관으로 이어지는 예약 흐름입니다.</p></div>
+      <div class="footer-links">
+        <a href="schedule.html">스케줄</a>
+        <a href="links.html">링크 허브</a>
+        <a href="index.html">홈</a>
+      </div>
+    </div>
+    <div class="footer-admin">
+      <a class="admin-login-link" href="admin.html" aria-label="관리자 로그인">관리자 로그인</a>
+    </div>
+  </footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
