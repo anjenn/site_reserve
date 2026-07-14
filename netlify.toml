@@ -1,6 +1,15 @@
 [build]
   publish = "."
 
+[[edge_functions]]
+  path = "/admin.html"
+  function = "admin-basic-auth"
+
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    Cache-Control = "no-store"
+
 [[headers]]
   for = "/"
   [headers.values]

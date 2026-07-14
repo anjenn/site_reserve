@@ -71,15 +71,3 @@ if (scheduleFilter) {
   classSelect?.addEventListener("change", applyScheduleFilter);
   applyScheduleFilter();
 }
-
-const form = document.querySelector("#reservationForm");
-const formResult = document.querySelector("#formResult");
-
-if (form && formResult) {
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    formResult.style.display = "block";
-    formResult.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    form.reset();
-  });
-}

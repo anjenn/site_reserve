@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>관리자 로그인 | NEST DANCE</title>
-  <link rel="stylesheet" href="assets/site.css" />
+  <title>관리자 | NEST DANCE</title>
+  <link rel="stylesheet" href="assets/site.css?v=mobile-optimized-20260714" />
 </head>
 <body>
-  <div class="top-banner">NEST DANCE | 관리자 접근</div>
+  <div class="top-banner">NEST DANCE | Analytics</div>
 
   <header class="site-header">
     <nav class="nav" aria-label="주요 메뉴">
@@ -18,25 +18,36 @@
       <div class="nav-links">
         <a href="schedule.html">스케줄</a>
         <a href="links.html">링크</a>
-        <a href="http://pf.kakao.com/_xmxeSuG" class="nav-cta" target="_blank" rel="noopener noreferrer">카카오 문의</a>
       </div>
     </nav>
   </header>
 
   <main class="admin-page">
-    <section class="admin-login-panel" aria-labelledby="adminLoginTitle">
+    <section class="admin-panel" aria-labelledby="adminTitle">
       <div>
-        <span class="eyebrow">관리자 공간</span>
-        <h1 id="adminLoginTitle">관리자 로그인</h1>
-        <p>승인된 Google 관리자 계정으로 로그인해 예약, 수업 상태, 문의 내역을 관리하세요.</p>
+        <span class="eyebrow">Admin</span>
+        <h1 id="adminTitle">Analytics</h1>
+        <p>방문 흐름과 주요 링크 반응을 확인하는 운영 화면입니다.</p>
       </div>
 
-      <div class="admin-login-actions">
-        <button class="btn btn-dark" id="adminGoogleLogin" type="button">Google로 로그인</button>
-        <button class="btn" id="adminGoogleLogout" type="button" hidden>로그아웃</button>
-        <a class="btn" href="index.html">사이트로 돌아가기</a>
+      <div class="admin-metrics" aria-label="요약 지표">
+        <div class="admin-metric">
+          <strong>-</strong>
+          <span>방문</span>
+        </div>
+        <div class="admin-metric">
+          <strong>-</strong>
+          <span>링크 클릭</span>
+        </div>
+        <div class="admin-metric">
+          <strong>-</strong>
+          <span>영상 반응</span>
+        </div>
       </div>
-      <div id="adminLoginResult" class="form-result" role="status" aria-live="polite">관리자 계정으로 Google 로그인해 주세요.</div>
+
+      <div class="admin-actions">
+        <a class="btn btn-dark" href="index.html">사이트로 돌아가기</a>
+      </div>
     </section>
   </main>
 
@@ -44,108 +55,15 @@
     <div class="footer-inner">
       <div>
         <h2>NEST DANCE</h2>
-        <p>스튜디오 운영을 위한 비공개 접근 화면입니다.</p>
+        <p>스튜디오 운영을 위한 비공개 분석 화면입니다.</p>
       </div>
       <div class="footer-links">
         <a href="index.html">홈</a>
-        <a href="reservation.html">예약</a>
         <a href="schedule.html">스케줄</a>
       </div>
     </div>
   </footer>
 
   <script src="assets/site.js"></script>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-    import {
-      getAuth,
-      GoogleAuthProvider,
-      onAuthStateChanged,
-      signInWithPopup,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-    import {
-      doc,
-      getDoc,
-      getFirestore
-    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDsYlsmaK_eyh-FskxAF_hlY0-wdUMlmaw",
-      authDomain: "arcross-1b910.firebaseapp.com",
-      projectId: "arcross-1b910",
-      storageBucket: "arcross-1b910.firebasestorage.app",
-      messagingSenderId: "59050851856",
-      appId: "1:59050851856:web:c5b87067805c382f291495"
-    };
-
-    const loginButton = document.querySelector("#adminGoogleLogin");
-    const logoutButton = document.querySelector("#adminGoogleLogout");
-    const result = document.querySelector("#adminLoginResult");
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: "select_account" });
-
-    const setStatus = (message, visible = true) => {
-      if (!result) return;
-      result.textContent = message;
-      result.style.display = visible ? "block" : "none";
-    };
-
-    const checkAdminAccess = async (user) => {
-      if (!user?.uid || !user.emailVerified) return false;
-      const adminDoc = await getDoc(doc(db, "admins", user.uid));
-      return adminDoc.exists();
-    };
-
-    loginButton?.addEventListener("click", async () => {
-      setStatus("Google 로그인 창을 여는 중입니다...");
-      try {
-        const credential = await signInWithPopup(auth, provider);
-        const allowed = await checkAdminAccess(credential.user);
-        if (!allowed) {
-          await signOut(auth);
-          setStatus("관리자 권한이 없는 Google 계정입니다. 승인된 계정으로 다시 로그인해 주세요.");
-          return;
-        }
-        setStatus(`${credential.user.email} 계정으로 로그인되었습니다.`);
-      } catch (error) {
-        setStatus(`로그인에 실패했습니다: ${error.message}`);
-      }
-    });
-
-    logoutButton?.addEventListener("click", async () => {
-      await signOut(auth);
-      setStatus("로그아웃되었습니다. 관리자 계정으로 Google 로그인해 주세요.");
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        loginButton.hidden = false;
-        logoutButton.hidden = true;
-        setStatus("관리자 계정으로 Google 로그인해 주세요.");
-        return;
-      }
-
-      try {
-        const allowed = await checkAdminAccess(user);
-        loginButton.hidden = allowed;
-        logoutButton.hidden = !allowed;
-        setStatus(
-          allowed
-            ? `${user.email} 계정으로 로그인되었습니다.`
-            : "관리자 권한이 없는 Google 계정입니다. 승인된 계정으로 다시 로그인해 주세요."
-        );
-        if (!allowed) await signOut(auth);
-      } catch (error) {
-        loginButton.hidden = false;
-        logoutButton.hidden = true;
-        setStatus(`관리자 권한 확인에 실패했습니다: ${error.message}`);
-      }
-    });
-  </script>
 </body>
 </html>

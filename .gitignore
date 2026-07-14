@@ -2,14 +2,6 @@
 .env.*
 !.env.example
 
-# Local Firebase/project metadata
-.firebaserc
-firebase.json
-firebase-debug.log
-firestore.rules
-firestore.indexes.json
-.firebase/
-
 # Local agent/tooling cache
 .agents/
 skills-lock.json
